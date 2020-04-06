@@ -36,6 +36,8 @@ server.use(new Session().express);
 server.use("/account", new UserController().router);
 
 //YOUR ROUTES HERE!!!!!!
+import ConvoController from "./controllers/ConvoController";
+server.use("/api/convos", new ConvoController().router);
 
 //NOTE Default error handler, catches all routes with an error attached
 server.use((error, req, res, next) => {
