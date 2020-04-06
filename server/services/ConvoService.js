@@ -54,12 +54,12 @@ class ConvoService {
   }
   async removeMessage(payload) {
     let data = await _repo.findOneAndUpdate(
-      { _id: payload.convoId, members: { $all: [payload.userId] } },
+      { _id: payload.convoId, authorId: payload.userId },
       { $pull: { messages: { _id: payload.messageId } } },
       { new: true }
     );
     if (!data) {
-      throw new ApiError("Invalid ID or you are no a part of this convo", 400);
+      throw new ApiError("Invalid ID or this is not your message", 400);
     }
     return data;
   }
