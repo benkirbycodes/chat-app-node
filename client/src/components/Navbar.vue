@@ -4,7 +4,6 @@
     <div id="nav-title">
       <h1>Chat-App</h1>
     </div>
-    <button id="new-convo-button" @click="createNewConvo">New</button>
   </div>
 </template>
 
@@ -14,11 +13,9 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout");
-    },
-    createNewConvo() {
-      //Make new convo
     }
-  }
+  },
+  components: {}
 };
 </script>
 

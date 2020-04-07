@@ -39,7 +39,8 @@ export default class ConvoController {
   }
   async create(req, res, next) {
     try {
-      req.body.authorId = req.session.uid;
+      req.body.adminId = req.session.uid;
+      req.body.members = [req.session.uid];
       let data = await _convoService.create(req.body);
       return res.status(201).send(data);
     } catch (error) {
