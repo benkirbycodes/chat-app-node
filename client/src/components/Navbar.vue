@@ -27,6 +27,7 @@ export default {
   width: 100%;
   background-color: thistle;
   height: 10%;
+  margin-bottom: 1%;
 }
 #logout-button {
   align-self: left;

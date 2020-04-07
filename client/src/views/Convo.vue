@@ -1,31 +1,34 @@
 <template>
-  <div class="convo">
+  <div class="convo-frame">
     <navbar />
-    <div id="screen-scroll" class="screen-outer-border">
-      <div id="insert-messages"></div>
-    </div>
 
-    <!-- "Typing" animation -->
-    <div class="typing-holder">
-      <div v-if="otherTyping" class="typing">
-        <span class="circle scaling"></span>
-        <span class="circle scaling"></span>
-        <span class="circle scaling"></span>
+    <div class="convo">
+      <div id="screen-scroll" class="screen-outer-border">
+        <div id="insert-messages"></div>
       </div>
-    </div>
 
-    <div class="screen-bottom">
-      <div id="insert-user-reply" class="user-message">
-        <form @submit.prevent="sendMessage">
-          <input type="text" v-model="outGoingMessage" />
-        </form>
+      <!-- "Typing" animation -->
+      <div class="typing-holder">
+        <div v-if="otherTyping" class="typing">
+          <span class="circle scaling"></span>
+          <span class="circle scaling"></span>
+          <span class="circle scaling"></span>
+        </div>
       </div>
-      <button v-if="!otherTyping" class="send">
-        <span class="button-text">Send</span>
-      </button>
-      <button v-if="otherTyping" class="send">
-        <span class="button-text">Send</span>
-      </button>
+
+      <div class="screen-bottom">
+        <div id="insert-user-reply" class="user-message">
+          <form id="user-reply-form" @submit.prevent="sendMessage">
+            <input id="user-reply-input" type="text" v-model="outGoingMessage" />
+          </form>
+        </div>
+        <button v-if="!otherTyping" class="send">
+          <span class="button-text">Send</span>
+        </button>
+        <button v-if="otherTyping" class="send">
+          <span class="button-text">Send</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +63,8 @@ html {
 body {
   display: flex;
   flex-direction: column;
+}
+.convo-frame {
 }
 .convo {
   height: 667px;
@@ -131,6 +136,14 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+#user-reply-form {
+  width: 100%;
+  height: 100%;
+}
+#user-reply-input {
+  width: 100%;
+  height: 100%;
 }
 .reply {
   margin-left: 2px;

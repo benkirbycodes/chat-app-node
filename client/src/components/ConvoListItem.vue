@@ -1,7 +1,9 @@
 <template>
   <div class="convo-list-item-frame">
     <router-link :to="{name: 'convo', params: {convoId: convoData._id}}">
-      <div class="convo-list-item">{{convoData.title}}</div>
+      <div class="convo-list-item">
+        <h4>{{convoData.title}}</h4>
+      </div>
     </router-link>
   </div>
 </template>
