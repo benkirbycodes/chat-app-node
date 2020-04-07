@@ -1,18 +1,14 @@
 <template>
   <div class="login">
     <div class="title">
-      <h1>Welcome To Chat-App!</h1>
+      <h1 id="login-title-text">Welcome To Chat-App!</h1>
     </div>
     <div>
       <form v-if="loginForm" @submit.prevent="loginUser">
         <input type="email" v-model="creds.email" placeholder="email" />
         <br />
         <br />
-        <input
-          type="password"
-          v-model="creds.password"
-          placeholder="password"
-        />
+        <input type="password" v-model="creds.password" placeholder="password" />
         <br />
         <button type="submit">Login</button>
       </form>
@@ -25,21 +21,13 @@
         <input type="email" v-model="newUser.email" placeholder="email" />
         <br />
         <br />
-        <input
-          type="password"
-          v-model="newUser.password"
-          placeholder="password"
-        />
+        <input type="password" v-model="newUser.password" placeholder="password" />
         <br />
         <button type="submit">Create Account</button>
       </form>
       <div class="action" @click="loginForm = !loginForm">
-        <p class="account" v-if="loginForm">
-          No account? Click here to Register
-        </p>
-        <p class="account" v-else>
-          Already have an account? Click here to Login
-        </p>
+        <p class="account" v-if="loginForm">No account? Click here to Register</p>
+        <p class="account" v-else>Already have an account? Click here to Login</p>
       </div>
     </div>
   </div>
@@ -79,4 +67,18 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+.login {
+  background-color: pink;
+  height: 100%;
+}
+#login-title-text {
+  margin-top: 0px;
+}
+</style>
