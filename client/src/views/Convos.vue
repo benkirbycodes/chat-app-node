@@ -1,9 +1,17 @@
 <template>
-  <div class="convos">Convos Page</div>
+  <div class="convos">
+    <navbar />
+  </div>
 </template>
 
 <script>
-export default {};
+import navbar from "@/components/Navbar.vue";
+export default {
+  name: "convos",
+  components: {
+    navbar
+  }
+};
 </script>
 
 <style>

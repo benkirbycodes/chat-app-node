@@ -1,5 +1,6 @@
 <template>
   <div class="convo">
+    <navbar />
     <div id="screen-scroll" class="screen-outer-border">
       <div id="insert-messages"></div>
     </div>
@@ -31,7 +32,7 @@
 
 <script>
 // @ is an alias to /src
-
+import navbar from "@/components/Navbar.vue";
 export default {
   name: "Convo",
   data() {
@@ -43,7 +44,9 @@ export default {
   methods: {
     sendMessage() {}
   },
-  components: {}
+  components: {
+    navbar
+  }
 };
 </script>
 
