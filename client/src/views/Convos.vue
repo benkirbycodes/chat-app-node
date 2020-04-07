@@ -5,9 +5,11 @@
       Your Conversations
       <a class="fa fa-plus" @click="showModal"></a>
     </h3>
-    <div class="convos-frame"></div>
+    <div class="convos-frame">
+      <convoListItem v-for="convo in convos" :key="convo._id" :convoData="convo" />
+    </div>
 
-    <!-- Hidden Modal -->
+    <!-- Hidden Modal SECTION -->
     <div class="modal" id="newConvoModal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -43,8 +45,11 @@
 
 <script>
 import navbar from "@/components/Navbar.vue";
-
+import convoListItem from "@/components/ConvoListItem.vue";
 export default {
+  mounted() {
+    this.$store.dispatch("getConvos");
+  },
   name: "convos",
   data() {
     return {
@@ -71,8 +76,14 @@ export default {
       };
     }
   },
+  computed: {
+    convos() {
+      return this.$store.state.convos;
+    }
+  },
   components: {
-    navbar
+    navbar,
+    convoListItem
   }
 };
 </script>
@@ -90,6 +101,9 @@ export default {
   border: 1px solid lightgrey;
   border-radius: 4px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 #convos-title-text {
   margin: auto;

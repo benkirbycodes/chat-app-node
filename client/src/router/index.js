@@ -21,7 +21,7 @@ const routes = [
     component: login
   },
   {
-    path: "/convo/:convoId",
+    path: "/convos/:convoId",
     name: "convo",
     component: convo
   },
