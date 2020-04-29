@@ -22,8 +22,8 @@ class UserService {
     delete user._doc.hash;
     return user;
   }
-  async getByEmailAndLogin(body) {
-    let user = await _repository.findOne({ email: body.email });
+  async getByUsernameAndLogin(body) {
+    let user = await _repository.findOne({ username: body.username });
     if (!user) {
       throw new ApiError("Invalid Username Or Password");
     }

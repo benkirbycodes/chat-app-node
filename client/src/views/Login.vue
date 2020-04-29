@@ -5,7 +5,7 @@
     </div>
     <div>
       <form v-if="loginForm" @submit.prevent="loginUser">
-        <input type="email" v-model="creds.email" placeholder="email" />
+        <input type="text" v-model="creds.username" placeholder="username" />
         <br />
         <br />
         <input type="password" v-model="creds.password" placeholder="password" />
@@ -18,7 +18,7 @@
 
         <br />
         <br />
-        <input type="email" v-model="newUser.email" placeholder="email" />
+        <input type="text" v-model="newUser.username" placeholder="username" />
         <br />
         <br />
         <input type="password" v-model="newUser.password" placeholder="password" />
@@ -41,11 +41,11 @@ export default {
     return {
       loginForm: true,
       creds: {
-        email: "",
+        username: "",
         password: ""
       },
       newUser: {
-        email: "",
+        username: "",
         name: "",
         password: ""
       }

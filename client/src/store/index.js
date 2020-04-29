@@ -75,6 +75,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get("convos/" + convoId);
         commit("setResource", { resource: "activeConvo", data: res.data });
+        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -107,6 +108,7 @@ export default new Vuex.Store({
       try {
         let res = await api.post("convos/" + newMessage.convoId + "/messages");
         dispatch("getConvoById", newMessage.convoId);
+        console.log(res.data);
       } catch (error) {
         console.error(error);
       }

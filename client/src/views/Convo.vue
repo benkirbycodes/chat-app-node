@@ -3,32 +3,12 @@
     <navbar />
 
     <div class="convo">
-      <div id="screen-scroll" class="screen-outer-border">
-        <div id="insert-messages"></div>
-      </div>
-
       <!-- "Typing" animation -->
-      <div class="typing-holder">
-        <div v-if="otherTyping" class="typing">
-          <span class="circle scaling"></span>
-          <span class="circle scaling"></span>
-          <span class="circle scaling"></span>
-        </div>
-      </div>
-
-      <div class="screen-bottom">
-        <div id="insert-user-reply" class="user-message">
-          <form id="user-reply-form" @submit.prevent="sendMessage">
-            <input id="user-reply-input" type="text" v-model="outGoingMessage" />
-          </form>
-        </div>
-        <button v-if="!otherTyping" class="send">
-          <span class="button-text">Send</span>
-        </button>
-        <button v-if="otherTyping" class="send">
-          <span class="button-text">Send</span>
-        </button>
-      </div>
+      {{convo.messages}}
+      <form @submit.prevent="sendMessage">
+        <input type="text" v-model="outGoingMessage.text" required />
+        <button>Send</button>
+      </form>
     </div>
   </div>
 </template>
@@ -37,18 +17,37 @@
 // @ is an alias to /src
 import navbar from "@/components/Navbar.vue";
 export default {
+  mounted() {
+    this.$store.dispatch("getConvoById", this.$route.params.convoId);
+  },
   name: "Convo",
   data() {
     return {
-      outGoingMessage: "",
+      outGoingMessage: {
+        text: "",
+        convoId: this.$route.params.convoId
+      },
       otherTyping: false
     };
   },
   methods: {
-    sendMessage() {}
+    sendMessage() {
+      let outGoingMessage = { ...this.outGoingMessage };
+      console.log("Client: " + outGoingMessage.text, outGoingMessage.convoId);
+      this.$store.dispatch("addMessage", outGoingMessage);
+      this.outGoingMessage = {
+        text: "",
+        convoId: this.$route.params.convoId
+      };
+    }
   },
   components: {
     navbar
+  },
+  computed: {
+    convo() {
+      return this.$store.state.activeConvo;
+    }
   }
 };
 </script>
@@ -71,7 +70,7 @@ body {
   width: 375px;
   margin: auto;
   justify-content: flex-start;
-  background-color: grey;
+  background-color: white;
   padding-top: 3%;
   border-radius: 4px;
   border: 4px solid lightgray;

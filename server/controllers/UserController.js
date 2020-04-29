@@ -31,7 +31,7 @@ export default class UserController {
 
   async login(req, res, next) {
     try {
-      let user = await _userService.getByEmailAndLogin(req.body);
+      let user = await _userService.getByUsernameAndLogin(req.body);
       //SET THE SESSION UID (SHORT FOR USERID)
       req.session.uid = user._id;
       res.send(user);

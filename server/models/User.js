@@ -5,8 +5,8 @@ let Schema = mongoose.Schema;
 const User = new Schema(
   {
     name: { type: String, required: true },
-    //every email must be unique on the database
-    email: { type: String, required: true, unique: true },
+    //every username must be unique on the database
+    username: { type: String, required: true, unique: true },
     hash: { type: String, required: true }
   },
   { timestamps: true }

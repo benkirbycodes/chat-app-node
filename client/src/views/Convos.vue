@@ -30,9 +30,9 @@
                   placeholder="Add a title "
                 />
               </label>
-              <label for="email">
-                Enter an email
-                <input v-model="newConvo.memberEmail" name="email" type="email" />
+              <label for="member">
+                Enter another member
+                <input v-model="newConvo.memberEmail" name="member" type="text" />
               </label>
               <button type="submit" class>Create</button>
             </form>
@@ -55,7 +55,7 @@ export default {
     return {
       newConvo: {
         title: "",
-        memberEmail: ""
+        member: ""
       }
     };
   },
