@@ -21,20 +21,24 @@
           </div>
           <div class="modal-body">
             <form @submit.prevent="createNewConvo">
-              <label for="title">
-                Title
-                <input
-                  v-model="newConvo.title"
-                  type="text"
-                  name="title"
-                  placeholder="Add a title "
-                />
-              </label>
-              <label for="member">
-                Enter another member
-                <input v-model="newConvo.memberEmail" name="member" type="text" />
-              </label>
-              <button type="submit" class>Create</button>
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >With who?</button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a
+                    @click="createNewConvo(username)"
+                    class="dropdown-item"
+                    v-for="(username, i ) in usernames"
+                    :key="i"
+                  >{{username}}</a>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -49,6 +53,7 @@ import convoListItem from "@/components/ConvoListItem.vue";
 export default {
   mounted() {
     this.$store.dispatch("getConvos");
+    this.$store.dispatch("getUsernames");
   },
   name: "convos",
   data() {
@@ -66,19 +71,24 @@ export default {
     hideModal() {
       $("#newConvoModal").modal("hide");
     },
-    createNewConvo() {
+    createNewConvo(username) {
+      this.newConvo.member = username;
+      this.newConvo.title = username;
       let newConvo = { ...this.newConvo };
       this.$store.dispatch("createConvo", newConvo);
       this.hideModal();
       this.newConvo = {
         title: "",
-        memberEmail: ""
+        member: ""
       };
     }
   },
   computed: {
     convos() {
       return this.$store.state.convos;
+    },
+    usernames() {
+      return this.$store.state.usernames;
     }
   },
   components: {
@@ -102,7 +112,7 @@ export default {
   border-radius: 4px;
   margin: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
 }
 #convos-title-text {

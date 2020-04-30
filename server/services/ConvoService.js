@@ -8,10 +8,10 @@ class ConvoService {
   //All methods tested in Postman, work for now
 
   async getAll(userId) {
-    return await _repo.find({ adminId: userId });
+    return await _repo.find({ members: { $all: [userId] } });
   }
   async getById(id, userId) {
-    let data = await _repo.findOne({ _id: id, adminId: userId });
+    let data = await _repo.findOne({ _id: id, members: { $all: [userId] } });
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this convo", 400);
     }

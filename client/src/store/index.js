@@ -16,7 +16,8 @@ export default new Vuex.Store({
   state: {
     user: {},
     convos: [],
-    activeConvo: {}
+    activeConvo: {},
+    usernames: []
   },
   mutations: {
     setResource(state, payload) {
@@ -63,6 +64,14 @@ export default new Vuex.Store({
     },
 
     //Convos SECTION
+    async getUsernames({ commit, dispatch }) {
+      try {
+        let res = await api.get("convos/usernames");
+        commit("setResource", { resource: "usernames", data: res.data });
+      } catch (error) {
+        console.warn(error);
+      }
+    },
     async getConvos({ commit, dispatch }) {
       try {
         let res = await api.get("convos");
@@ -106,7 +115,10 @@ export default new Vuex.Store({
     },
     async addMessage({ commit, dispatch }, newMessage) {
       try {
-        let res = await api.post("convos/" + newMessage.convoId + "/messages");
+        let res = await api.post(
+          "convos/" + newMessage.convoId + "/messages",
+          newMessage
+        );
         dispatch("getConvoById", newMessage.convoId);
         console.log(res.data);
       } catch (error) {

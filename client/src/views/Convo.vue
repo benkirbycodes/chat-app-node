@@ -3,8 +3,7 @@
     <navbar />
 
     <div class="convo">
-      <!-- "Typing" animation -->
-      {{convo.messages}}
+      <div v-for="message in messages" :key="message._id">{{message.username}}: {{message.text}}</div>
       <form @submit.prevent="sendMessage">
         <input type="text" v-model="outGoingMessage.text" required />
         <button>Send</button>
@@ -45,8 +44,8 @@ export default {
     navbar
   },
   computed: {
-    convo() {
-      return this.$store.state.activeConvo;
+    messages() {
+      return this.$store.state.activeConvo.messages;
     }
   }
 };

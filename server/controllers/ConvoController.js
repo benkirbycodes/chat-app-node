@@ -1,6 +1,7 @@
 import express from "express";
 import { Authorize } from "../middleware/authorize";
 import _convoService from "../services/ConvoService";
+import _userService from "../services/UserService";
 
 export default class ConvoController {
   constructor() {
@@ -8,6 +9,7 @@ export default class ConvoController {
       .Router()
       .use(Authorize.authenticated)
       .get("", this.getAll)
+      .get("/usernames", this.getUsernames)
       .get("/:id", this.getById)
       .post("", this.create)
       .post("/:id/messages", this.addMessage)
@@ -29,6 +31,15 @@ export default class ConvoController {
       next(err);
     }
   }
+
+  async getUsernames(req, res, next) {
+    try {
+      let data = await _userService.getUsernames();
+      res.status(201).send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
   async getById(req, res, next) {
     try {
       let data = await _convoService.getById(req.params.id, req.session.uid);
@@ -39,17 +50,21 @@ export default class ConvoController {
   }
   async create(req, res, next) {
     try {
+      let otherMemberId = await _userService.getIdByUsername(req.body.member);
       req.body.adminId = req.session.uid;
-      req.body.members = [req.session.uid];
+      req.body.members = [req.session.uid, otherMemberId];
       let data = await _convoService.create(req.body);
       return res.status(201).send(data);
     } catch (error) {
       next(error);
     }
   }
+
   async addMessage(req, res, next) {
     try {
+      let username = await _userService.getUsernameById(req.session.uid);
       req.body.authorId = req.session.uid;
+      req.body.username = username;
       let data = await _convoService.addMessage(req.params.id, req.body);
       return res.status(201).send(data);
     } catch (error) {
